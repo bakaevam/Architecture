@@ -29,6 +29,7 @@ class Fragment : Fragment(R.layout.fragment), MvpContract.IView {
         presenter.loadPosts()
 
         binding.listSRL.setOnRefreshListener {
+            mainAdapter.items = emptyList()
             presenter.loadPosts()
         }
     }
