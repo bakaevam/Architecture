@@ -1,23 +1,15 @@
 package com.example.architecturebase
 
-import android.view.LayoutInflater
-import android.view.View
-import androidx.recyclerview.widget.RecyclerView
+import com.example.architecturebase.network.model.Post
 
 interface MvpContract {
 
     interface IView {
-        fun getLayoutInflater() : LayoutInflater
         fun showFailureLoadDataDialog(t: Throwable)
-        fun getLayoutManager() : RecyclerView.LayoutManager
-        fun setContentView(view: View)
+        fun getNewPosts(posts: List<Post>)
     }
 
     interface IPresenter {
-        fun setLayoutManagerWithAdapter()
-        fun setListRefreshing()
-        fun getPosts()
-        fun setListenerListRefresher()
-
+        fun loadPosts()
     }
 }
