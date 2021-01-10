@@ -10,17 +10,17 @@ import java.util.concurrent.TimeUnit
 class Repository : IRepository {
 
     private val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-            .callTimeout(REQUEST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            .build()
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+        .callTimeout(REQUEST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+        .build()
 
     private val retrofit = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+        .baseUrl("https://jsonplaceholder.typicode.com")
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
 
     private val postApi = retrofit.create(IPostApi::class.java)
 
@@ -31,5 +31,4 @@ class Repository : IRepository {
     companion object {
         private const val REQUEST_TIMEOUT_SECONDS = 5L
     }
-
 }
