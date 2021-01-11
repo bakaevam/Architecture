@@ -1,11 +1,12 @@
 package com.example.architecturebase
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LiveData
 import com.example.architecturebase.network.model.Post
 
-interface MvvmContract {
+interface MvvmContract : LifecycleObserver {
 
-    val listPosts: MutableLiveData<List<Post>>
-    val errorMessage: MutableLiveData<Throwable>
+    val listPosts: LiveData<List<Post>>
+    val errorMessage: LiveData<Throwable>
     fun getPosts()
 }

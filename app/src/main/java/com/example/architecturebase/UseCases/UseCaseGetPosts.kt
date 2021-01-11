@@ -1,6 +1,6 @@
 package com.example.architecturebase.UseCases
 
-import androidx.lifecycle.MutableLiveData
+import com.example.architecturebase.CallbackFromRetrofit
 import com.example.architecturebase.IRepository
 import com.example.architecturebase.Repository
 import com.example.architecturebase.network.model.Post
@@ -12,18 +12,17 @@ object UseCaseGetPosts {
 
     private val repository: IRepository = Repository()
 
-    fun loadPosts(listPosts: MutableLiveData<List<Post>>, errorMessage: MutableLiveData<Throwable>) {
+    fun loadPosts(customCallback: CallbackFromRetrofit) {
         repository.getData().getPosts().enqueue(object : Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { posts ->
-                        listPosts.value = sortedPosts(posts)
+                        customCallback.onSuccess(sortedPosts(posts))
                     }
                 }
             }
-
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                errorMessage.value = t
+                customCallback.onFailure(t)
             }
         })
     }
