@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturebase.adapter.MainAdapter
 import com.example.architecturebase.databinding.FragmentBinding
@@ -14,9 +13,6 @@ class Fragment : Fragment(R.layout.fragment) {
 
     private val mvvmModelView: MvvmContract = ViewModelMvvm()
 
-    init {
-        lifecycle.addObserver(mvvmModelView)
-    }
 
     private var _binding: FragmentBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +26,8 @@ class Fragment : Fragment(R.layout.fragment) {
             layoutManager = LinearLayoutManager(activity)
             adapter = mainAdapter
         }
+
+        mvvmModelView.getPosts()
 
         binding.listSRL.isRefreshing = true
 

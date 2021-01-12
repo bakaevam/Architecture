@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.example.architecturebase.UseCases.UseCaseGetPosts
 import com.example.architecturebase.network.model.Post
 
-class ViewModelMvvm : LifecycleObserver, MvvmContract {
+class ViewModelMvvm :  MvvmContract, ViewModel() {
 
 
     override val listPosts: MutableLiveData<List<Post>> = MutableLiveData()
@@ -21,10 +21,5 @@ class ViewModelMvvm : LifecycleObserver, MvvmContract {
                 errorMessage.value = value
             }
         })
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        getPosts()
     }
 }
