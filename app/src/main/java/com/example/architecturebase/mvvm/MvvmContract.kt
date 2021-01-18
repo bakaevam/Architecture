@@ -1,12 +1,17 @@
 package com.example.architecturebase.mvvm
 
-import com.example.architecturebase.mvvm.model.Subscribable
+
+import androidx.lifecycle.MutableLiveData
+import com.example.architecturebase.network.IPostApi
 import com.example.architecturebase.network.model.Post
 
 interface MvvmContract {
-    interface IMvvmPresenter {
-        val data: Subscribable<List<Post>>
-
+    interface IPostViewModel {
         fun getPosts()
+        val liveData: MutableLiveData<List<Post>>?
+    }
+
+    interface IMvvmPresenter {
+        fun getPosts(): IPostApi
     }
 }
