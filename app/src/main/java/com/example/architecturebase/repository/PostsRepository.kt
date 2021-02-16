@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.architecturebase.adapter.MainAdapter
 import com.example.architecturebase.databinding.ActivityMainBinding
 import com.example.architecturebase.network.IPostApi
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,21 +18,21 @@ class PostsRepository : IPostsRepository {
     }
 
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
-        .callTimeout(REQUEST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-        .build()
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .callTimeout(REQUEST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://jsonplaceholder.typicode.com")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpClient)
-        .build()
+            .baseUrl("https://social-network.samuraijs.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .build()
 
     override fun getAll(): IPostApi {
         Log.v("REPOSITORY", "GET ALL")
         return retrofit.create(IPostApi::class.java)
     }
-
 }
