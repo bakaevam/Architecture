@@ -5,8 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class Post(
     @SerializedName("id")
     val id: Long,
-    @SerializedName("title")
-    val title: String,
-    @SerializedName("body")
-    val body: String
+    @SerializedName("name")
+    val name: String
+)
+
+data class ResponsePost(
+        @SerializedName("items")
+        val list: List<Post>
 )
